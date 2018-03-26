@@ -1,0 +1,19 @@
+创建本地git空间
+
+1. git init
+
+2. git remote add origin https://github.com/ZhangLijia0901/spring-cloud.git 添加git地址别名
+
+
+
+
+提交代码
+
+1. 在git空间创建文件
+
+2. 执行 git add
+
+3. git commit -m "注释" 提交到本地仓库
+
+4. git push -u origin master 提交的远程仓库
+	origin：为git地址取的别名
