@@ -7,8 +7,8 @@ spring:
         git:
           uri: https://github.com/ZhangLijia0901/spring-cloud.git
           search-paths: config-server/config-repo
-          username: ZhangLijia0901
-          password: zhang1997
+          username: username
+          password: userpwd
           default-label: master
 server:
   port: 8140
