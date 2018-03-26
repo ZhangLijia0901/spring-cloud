@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: cloud-zuul
+server:
+  port: 8130
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8100/eureka/
+logging:
+  level:
+    root: info
+zuul:
+  retryable: false
+  routes:
+    api-a:
+      path: /one/**
+      service-id: SERVER-ONE
+    api-b:
+      path: /two/**
+      service-id: SERVER-TWO
+management:
+  security:
+    enabled: false

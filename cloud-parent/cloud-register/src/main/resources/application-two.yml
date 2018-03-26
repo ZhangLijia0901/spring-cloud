@@ -1,0 +1,8 @@
+server:
+  port: 8102
+eureka:
+  instance:
+    hostname: reg2
+  client:
+    service-url:
+      defaultZone: http://reg1:8101/eureka/,http://reg3:8103/eureka/

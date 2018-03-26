@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.lj</groupId>
+	<artifactId>cloud-parent</artifactId>
+	<packaging>pom</packaging>
+	<version>${project.version}</version>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.9.RELEASE</version>
+	</parent>
+
+	<properties>
+		<java.version>1.8</java.version>
+		<project.version>0.0.1-SNAPSHOT</project.version>
+		<boot.admin.version>1.5.6</boot.admin.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<!-- <version>Brixton.SR7</version> -->
+				<!-- <version>Camden.SR5</version> -->
+				<!-- <version>Dalston.SR5</version> -->
+				<version>Edgware.RELEASE</version>
+				<!-- <version>Finchley.M2</version> -->
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<fork>true</fork>
+					<useTestClasspath>false</useTestClasspath>
+				</configuration>
+			</plugin>
+		</plugins>
+		<finalName>cloud-parent</finalName>
+	</build>
+	<modules>
+		<module>cloud-zuul</module>
+		<module>cloud-register</module>
+		<module>cloud-admin</module>
+		<module>cloud-server-one</module>
+		<module>cloud-server-two</module>
+		<module>cloud-common</module>
+		<module>cloud-yw</module>
+		<module>cloud-config-server</module>
+	</modules>
+</project>
