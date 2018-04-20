@@ -1,0 +1,7 @@
+ SpringApplication
+	static 			run(clazz, args);
+	static 			run(clazz[], args);  -- 创建实例 .run(args)
+	constructor		SpringApplication(clazz... );
+	constructor		SpringApplication(ResourceLoader, clazz... );  --推断web应用类型、加载应用程序初始化器、加载应用程序监听器、推断main函数所在的Class
+	instance		run(args);
+		

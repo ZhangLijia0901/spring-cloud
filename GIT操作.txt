@@ -17,3 +17,8 @@
 
 4. git push -u origin master 提交的远程仓库
 	origin：为git地址取的别名
+	
+	
+覆盖本地
+	git reset --hard
+	git pull
