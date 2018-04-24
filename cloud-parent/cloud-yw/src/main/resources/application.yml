@@ -1,6 +1,15 @@
 logging:
   level:
     root: debug
-    
-server: 
+server:
   port: 8080
+wx:
+  appid: wx86355b69b0af0b7c
+  appsecret: 39af27b8e647b599823a3089317f81b4
+  token: HafS3ZIotbjisg1YBfRKM2xQYGg6sRXD
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: x5
