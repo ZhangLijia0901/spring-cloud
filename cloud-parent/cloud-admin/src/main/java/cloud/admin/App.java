@@ -9,7 +9,7 @@ import de.codecentric.boot.admin.config.EnableAdminServer;
 @SpringBootApplication
 @EnableAdminServer
 @EnableEurekaClient
-public class App {
+public class App { 
 
 	public static void main(String[] args) {
 		SpringApplication.run(App.class, args);
