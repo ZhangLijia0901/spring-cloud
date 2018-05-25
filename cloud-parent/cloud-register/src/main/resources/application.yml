@@ -1,12 +1,6 @@
 spring:
   application:
     name: cloud-register
-
-    server:
-  port: 8100
-spring:
-  application:
-    name: cloud-register
 eureka:
   instance:
     hostname: 127.0.0.1

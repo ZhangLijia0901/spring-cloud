@@ -2,6 +2,138 @@
 	static 			run(clazz, args);
 	static 			run(clazz[], args);  -- 创建实例 .run(args)
 	constructor		SpringApplication(clazz... );
-	constructor		SpringApplication(ResourceLoader, clazz... );  --推断web应用类型、加载应用程序初始化器、加载应用程序监听器、推断main函数所在的Class
+	constructor		SpringApplication(ResourceLoader, clazz... );  -- 推断web应用类型、加载应用程序初始化器、加载应用程序监听器、推断main函数所在的Class
 	instance		run(args);
+	instance		getRunListeners();	-- 获取运行监听器		
+						创建应用程序参数 DefaultApplicationArguments
+						触发监听启动事件
+	instance			prepareEnvironment()	-- 准备应用环境
+							
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	应用启动事件监听器
+		LoggingApplicationListener
+		BackgroundPreinitializer
+		DelegatingApplicationListener
+		LiquibaseServiceLocatorApplicationListener
+		
+	应用环境准备事件监听器	
+		org.springframework.cloud.bootstrap.BootstrapApplicationListener@a1153bc, 
+		org.springframework.cloud.bootstrap.LoggingSystemShutdownListener@1aafa419, 
+		org.springframework.boot.context.config.ConfigFileApplicationListener@47eaca72, 
+		org.springframework.boot.context.config.AnsiOutputApplicationListener@55141def, 
+		org.springframework.boot.logging.LoggingApplicationListener@55182842, 
+		org.springframework.boot.logging.ClasspathLoggingApplicationListener@3270d194, 
+		org.springframework.boot.autoconfigure.BackgroundPreinitializer@235834f2, 
+		org.springframework.boot.context.config.DelegatingApplicationListener@5656be13, 
+		org.springframework.boot.context.FileEncodingApplicationListener@77888435
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		BootstrapApplicationListener
+
+		
+		org.springframework.cloud.bootstrap.config.PropertySourceBootstrapConfiguration, 
+		org.springframework.cloud.bootstrap.encrypt.EncryptionBootstrapConfiguration, 
+		org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration,
+		org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration, 
+	//	org.springframework.cloud.netflix.eureka.config.EurekaDiscoveryClientConfigServiceBootstrapConfiguration
+		
+		
+		
+		
+		
+		@PropertySources
+		@ComponentScans
+		@Import 加载  (ImportSelector 、ImportBeanDefinitionRegistrar、DeferredImportSelector)
+		@ImportResource
+		@Bean
+		
+						SpringApplication
+							.run()
+							.refreshContext()
+							.refresh()
+						AbstractApplicationContext
+							.refresh()
+							.invokeBeanFactoryPostProcessors()
+						PostProcessorRegistrationDelegate
+							.invokeBeanDefinitionRegistryPostProcessors()
+						ConfigurationClassPostProcessor
+							.postProcessBeanDefinitionRegistry()
+							.processConfigBeanDefinitions()
+						ConfigurationClassParser
+							.parse()
+							.processConfigurationClass()
+							.doProcessConfigurationClass()
+							.getImports()
+							.collectImports()
+		
+		
+		
+		
+		
+		
+		spring.factories	配置使用的类
+		spring-autoconfigure-metadata.properties	配置自动配置类的描述 @ConditionalOnClass、@AutoConfigureBefore、@AutoConfigureAfter ...
+		
+	//	自动配置类注解直接使用无效
+	//		@ConditionalOnBean、@ConditionalOnClass、
+		
+		
+		自动配置 @EnableAutoConfiguration 解析
+			首先通过 AutoConfigurationImportSelector 从 spring.factories 获取自动配置类
+			再进行去重、排序、@SpringBootApplication 特定配置排除
+			然后通过 spring.factories 中配置 AutoConfigurationImportFilter 进行过滤
+			最后将筛选后剩下的类解析
+			
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		missPaymentRequest.html
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		http://172.16.36.69:8081/status/vr-biss/biss/provider/v1.0.0/test/172.16.36.68

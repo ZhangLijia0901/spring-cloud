@@ -70,14 +70,8 @@
 		<!-- <artifactId>spring-boot-starter-webflux</artifactId> -->
 		<!-- </dependency> -->
 
-<!-- 
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<optional>true</optional>
-		</dependency>
- -->
+		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-devtools</artifactId> 
+			<optional>true</optional> </dependency> -->
 
 		<!-- <dependency> -->
 		<!-- <groupId>io.netty</groupId> -->
@@ -150,6 +144,13 @@
 			<groupId>com.github.pagehelper</groupId>
 			<artifactId>pagehelper</artifactId>
 			<version>5.1.3</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.financial</groupId>
+			<version>0.0.1-SNAPSHOT</version>
+			<artifactId>common</artifactId>
 		</dependency>
 
 	</dependencies>
