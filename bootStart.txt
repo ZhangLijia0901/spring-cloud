@@ -71,7 +71,7 @@
 		
 		@PropertySources
 		@ComponentScans
-		@Import 加载  (ImportSelector 、ImportBeanDefinitionRegistrar、DeferredImportSelector)
+		@Import 加载  (ImportSelector 、ImportBeanDefinitionRegistrar、DeferredImportSelector...)
 		@ImportResource
 		@Bean
 		
@@ -102,8 +102,6 @@
 		spring.factories	配置使用的类
 		spring-autoconfigure-metadata.properties	配置自动配置类的描述 @ConditionalOnClass、@AutoConfigureBefore、@AutoConfigureAfter ...
 		
-	//	自动配置类注解直接使用无效
-	//		@ConditionalOnBean、@ConditionalOnClass、
 		
 		
 		自动配置 @EnableAutoConfiguration 解析
