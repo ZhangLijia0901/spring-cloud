@@ -164,8 +164,112 @@ Java中间件
 			
 			
 			
-	Consul + upsync + Nginx  动态负载均衡
+	Consul + upsync + Nginx(v1.9+)  动态负载均衡
+		Consul: 使用go语言编写的注册中心, 类似于zookeeper、eureka
+		Upsync: 新浪开发的一个 Nginx 插件.
+		动态负载均衡原理: 搭建 ConsulServer 存放负载均衡配置消息; Nginx 隔时读取 ConsulServer 最新的配置消息.
+		
+		Linux 
+			  安装wget: yum -y install wget
+			安装Consul: wget https://releases.hashicorp.com/consul/0.7.5/consul_0.7.5_linux_amd64.zip
+				  解压: unzip consul_0.7.5_linux_amd64.zip
+				  启动: ./consul agent -dev -ui -node=consul-dev -client=192.168.181.129
+		关闭临时防火墙: systemctl stop firewalld
+				  界面: http://192.168.181.129:8500
+			  注册服务: http://192.168.181.129:8500/v1/catalog/register
+				{"Datacenter": "dc1", "Node": "Tomcat", "Address": "192.168.5.1", "Service": {"Id": "192.168.5.1:8080", "Service": "test", "tags": ["dev"], "port": 8080}}
+			    添加kv: http://192.168.181.129:8500/v1/kv/upstreams/test/192.168.5.1:8081
+		  配置负载均衡: {"weight":2, "max_fails":2,"fail_timeout":10, "down":0}
+				
+			安装Nginx: wget http://nginx.org/download/nginx-1.9.10.tar.gz
+		   安装upsync: wget https://github.com/weibocom/nginx-upsync-module/archive/master.zip
+				 解压: unzip master.zip
+					   tar -zxvf nginx-1.9.10.tar.gz
+		 创建必要目录: groupadd nginx
+					   useradd -g nginx -s /sbin/nologin nginx
+					   mkdir -p /var/tmp/nginx/client/
+					   mkdir -p /usr/local/nginx
+			编译Nginx: 
+				./configure --prefix=/usr/local/nginx --user=nginx --group=nginx --with-http_ssl_module --with-http_flv_module --with-http_stub_status_module --with-http_gzip_static_module --with-http_realip_module --http-client-body-temp-path=/var/tmp/nginx/client/ --http-proxy-temp-path=/var/tmp/nginx/proxy/ --http-fastcgi-temp-path=/var/tmp/nginx/fcgi/ --http-uwsgi-temp-path=/var/tmp/nginx/uwsgi/ --http-scgi-temp-path=/var/tmp/nginx/scgi/ --with-pcre --add-module=../nginx-upsync-module-master
+				make&&make install
+				
+				解决错误[checking for C compiler ... not found]: 	yum -y install gcc gcc-c++ autoconf automake make
+				解决错误[the HTTP rewrite module requires the PCRE library]: 	yum -y install pcre-devel
+				解决错误[SSL modules require the OpenSSL library]: 		yum -y install openssl openssl-devel
+			
+		修改Nginx配置: 
+			upstream test{
+				server	127.0.0.1:11111;
+				### upsync 拉取负载均衡配置的consulServer配置, 拉取地址、拉取超时时间、拉取间隔时间、拉取注册中心类型
+				upsync 192.168.181.129:8500/v1/kv/upstreams/test upsync_timeout=6m	upsync_interval=500ms	upsync_type=consul	strong_dependency=off;
+				### 动态拉取 consulServer 配置持久化的目录, 需要提前创建/usr/local/nginx/conf/servers目录
+				upsync_dump_path	/usr/local/nginx/conf/servers/servers_test.conf;
+			}
+			server {
+				listen       80;
+				server_name  localhost;
+				location / {
+					proxy_pass http://test;
+					index  index.html index.htm;
+				}
+			}
+			
+			
+
+		   
+		
+		
+
+
+		
+		
+		
+		
 		
 		
 		
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~		
+Linux 
+	
+	使用 win cmd 连接 ssh/sftp 需要安装 openssh for windows 
+	也可使用 XShell 或者其它工具
+	
+	
+	sftp命令:
+	------------------------------------------------------------------------------------------------------------------------
+		bye/quit/exit     	finish your SFTP session								完成 SFTP 会话
+	------------------------------------------------------------------------------------------------------------------------
+		cd      			change your remote working directory					改变远程机的工作目录
+	------------------------------------------------------------------------------------------------------------------------
+		clear   			clear screen											清空屏幕内容
+	------------------------------------------------------------------------------------------------------------------------
+		explore 			explore your local directory							浏览本地目录
+	------------------------------------------------------------------------------------------------------------------------
+		get     			download a file from the server to your local machine	将文件从远程机下载到本地计算机
+	------------------------------------------------------------------------------------------------------------------------
+		help    			give help												获取帮助
+	------------------------------------------------------------------------------------------------------------------------
+		lcd     			change and/or print local working directory				改变本地计算机的工作目录
+	------------------------------------------------------------------------------------------------------------------------
+		lls     			list contents of a local directory						列出本地目录的内容
+	------------------------------------------------------------------------------------------------------------------------
+		lpwd    			print your local working directory						显示本地工作目录路径
+	------------------------------------------------------------------------------------------------------------------------
+		ls      			list contents of a remote directory						列出远程机目录的内容
+	------------------------------------------------------------------------------------------------------------------------
+		mkdir   			create a directory on the remote server					在远程机创建一个目录
+	------------------------------------------------------------------------------------------------------------------------
+		mv/rename 			move or rename a file on the remote server				在远程机移动/重命名一个文件
+	------------------------------------------------------------------------------------------------------------------------
+		put     			upload a file from your local machine to the server		将一个文件从本地计算机上传到远程机
+	------------------------------------------------------------------------------------------------------------------------
+		pwd     			print your remote working directory						显示远程机工作目录路径
+	------------------------------------------------------------------------------------------------------------------------
+		rm      			delete a file											删除一个文件
+	------------------------------------------------------------------------------------------------------------------------
+		rmdir   			remove a directory on the remote server					在远程机删除一个目录
+	------------------------------------------------------------------------------------------------------------------------
+
+																									2018年7月18日17:12:12
