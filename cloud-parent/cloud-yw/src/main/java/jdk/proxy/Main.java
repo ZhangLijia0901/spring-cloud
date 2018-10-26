@@ -1,12 +1,6 @@
 package jdk.proxy;
 
 import java.io.File;
-import java.lang.reflect.Field;
-import java.util.Properties;
-
-import jdk.proxy.handler.ProxyHandler;
-import jdk.proxy.service.UserService;
-import jdk.proxy.service.impl.UserServiceImpl;
 
 public class Main {
 	public static void main(String[] args) throws Exception {
