@@ -1,0 +1,25 @@
+static void handleFiles(File file) {
+		if (file != null && file.exists()) {
+			File[] files = file.listFiles((File f) -> {
+				if (f.isDirectory())
+					return true;
+				String name = f.getName();
+				if (name.endsWith(".jar") && !name.contains("javadoc") && !name.contains("sources"))
+					return true;
+				return false;
+			});
+
+			for (File f : files) {
+				if (f.isFile()) {
+					try (JarFile jf = new JarFile(f)) {
+					} catch (Exception e) {
+						f.delete();
+						System.err.println(f);
+					}
+					continue;
+				}
+				handleFiles(f);
+
+			}
+		}
+	}
