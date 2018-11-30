@@ -147,11 +147,11 @@
 		</dependency>
 
 
-		<dependency>
-			<groupId>com.financial</groupId>
-			<version>0.0.1-SNAPSHOT</version>
-			<artifactId>common</artifactId>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.financial</groupId> -->
+<!-- 			<version>0.0.1-SNAPSHOT</version> -->
+<!-- 			<artifactId>common</artifactId> -->
+<!-- 		</dependency> -->
 
 	</dependencies>
 	<build>

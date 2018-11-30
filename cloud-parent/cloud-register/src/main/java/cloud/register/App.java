@@ -9,14 +9,20 @@ import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 public class App {
 	public static void main(String[] args) {
 		SpringApplication.run(App.class, args);
+//		test();
+	}
+
+	static void test() {
+		new A().a();
 	}
 
 	static class A {
 		void a() {
-			StackTraceElement[] stackTrace = new RuntimeException()
-					.getStackTrace();
+			StackTraceElement[] stackTrace = new RuntimeException().getStackTrace();
+			stackTrace =new Throwable().getStackTrace();
 			for (StackTraceElement s : stackTrace) {
-				System.err.println(s.getClassName() + ", " + s.getMethodName());
+
+				System.err.println(s.getClassName() + ", " + s.getMethodName() + ", " + s.getLineNumber());
 			}
 		}
 	}

@@ -1,11 +1,16 @@
 spring:
+  profiles:
+    active:
+    - common
   application:
-    name: cloud-register
+    name: ${project.register.name}
+server:
+  port: ${project.register.one.port}
 eureka:
   instance:
-    hostname: 127.0.0.1
+    hostname: ${project.register.one.hostname}
   client:
     register-with-eureka: false
     fetch-registry: false
     service-url:
-      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+      defaultZone: ${project.register.one.service-url}

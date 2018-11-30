@@ -1,13 +1,14 @@
 spring:
+  profiles:
+    active:
+    - common
   application:
-    name: server-one
+    name: ${project.server-one.name}
+  boot:
+    admin:
+      client:
+        url: http://127.0.0.1:8180
 eureka:
   client:
     service-url:
-      defaultZone: http://127.0.0.1:8100/eureka/
-logging:
-  level:
-    root: info
-management:
-  security:
-    enabled: false
+      defaultZone: ${project.register.one.service-url}
