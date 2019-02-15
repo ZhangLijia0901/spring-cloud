@@ -15,9 +15,11 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.http.MediaType;
 
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import com.lj.webflux.config.Swagger2Configuration;
+import com.lj.webflux.controller.UserController;
 
 //@WxApplication
-@SpringBootApplication
+@SpringBootApplication(scanBasePackageClasses = { Swagger2Configuration.class, UserController.class })
 public class App implements InitializingBean, ApplicationContextAware {
 
 //	@Autowired

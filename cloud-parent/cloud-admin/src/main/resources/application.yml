@@ -10,3 +10,13 @@ eureka:
   client:
     service-url:
       defaultZone: ${project.register.one.service-url}
+      
+      
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always

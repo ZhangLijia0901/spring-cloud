@@ -1,8 +1,6 @@
 logging:
   level:
     root: info
-    org.apache.ibatis: debug
-    org.mybatis: debug
     com.lj: debug
 server:
   port: 8080

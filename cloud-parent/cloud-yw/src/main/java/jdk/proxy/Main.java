@@ -19,7 +19,7 @@ public class Main {
 		// stream.writeObject(proxy);
 
 		// E:\xp1.0xxx
-		removeJar(new File("E:\\xp1.0xxx"));
+//		removeJar(new File("E:\\xp1.0xxx"));
 	}
 
 	static void removeJar(File folderFile) {

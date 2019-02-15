@@ -201,6 +201,55 @@ Java
 		找bug		SpotBug				Eclipse Marktplace 搜索 SpotBug
 	---------------------------------------------------------------------------------------------------------------
 	
+	
+	---------------------------------------------------------------------------------------------------------------
+	Cloud 分析
+	---------------------------------------------------------------------------------------------------------------
+		SpringClientFactory: 用来创建客户端负载均衡器的工具类, 会为每个不同名的Ribbon客户端生成不同Spring上下文(ApplicationContext);
+		RibbonLoadBalancerContext: LoadBalancerContext的子类,包含一些被负载均衡器使用的上下文内容和API操作;
+	
+		Ribbon
+			RestTemplate[rest请求发起] 、 LoadBalancerInterceptor[拦截器]
+			@LoadBalanced、 LoadBalancerClient
+			
+			负载均衡实现
+				ILoadBalancer[非单例、通过SpringClientFactory创建]、DynamicServerListLoadBalancer
+				ServerListUpdater -> PollingServerListUpdater [服务更新器- start(UpdataAction)启动服务更新定时任务, 默认: 延迟1秒执行,再以30秒的周期重复执行]
+				DiscoveryEnabledNIWSServerList[从Eureka Server中获取可用服务列表]
+			策略
+				IRule、RandomRule[随机]、RoundRobinRule[轮询]、RetryRule[具备重试]、WeightedResponseTimeRule[权重(平均响应时间小权重大)]、
+					BestAvailableRule[最空闲优先]、AvailabilityFilteringRule[先过滤,再轮询]1[先组合过滤,再轮询(默认)]
+					
+					
+		Hystrix
+			@EnableHystrix: 启动断路器
+			HystrixCircuitBreaker [断路器决策/信息记录]
+			定义命令: 继承 HystrixCommand 类,重写run(),同步执行execute(),异步执行queue(); 使用注解定义: 方法上添加@HystrixCommand,仅支持同步执行;
+			命令封装: 继承 HystrixObservableCommand类,重写construct(); 使用注解封装: 方法上添加@HystrixCommand,且方法返回值为 Observable类型;
+			服务降级: 继承 HystrixCommand 类,重写run()、getFallback()方法; 使用注解定义: 方法上添加@HystrixCommand,并设fallbackMethod(回调方法)属性,fallbackMethod方法也支持服务降级;
+			异常传播: run()抛出异常(除HystrixBadRequestException)均被认命令执行失败,并触发服务降级; 使用注解配置的命令支持使用ignoreExceptions参数定义过滤的异常;
+			异常获取: 继承实现的命令使用getExecutionException()获取异常;  使用注解配置的命令使用参数获取异常;
+			
+			
+		Feign
+			@EnableFeignClients: 在启动类添加, 标志启用Feign;
+			@FeignClient: 定义服务调用接口, value参数指定调用的服务名, 结合@RequestMapping定义调用的服务;
+			Feign客户端的负载均衡使用Ribbon实现, 所以通过配置Ribbon的方式自定义调用参数;
+			全局配置: ribbon.<key>=<value> ; 指定服务配置: <client>.ribbon.<key>=<value>, <client>为@FeignClient定义的服务名
+			配置服务降级: 在@FeignClient中fallback参数定义回调的Class, 并添加@FeignClient定义接口的实现类为回调的Class 并注册到spring;
+			
+			
+		Zuul
+			@EnableZuulProxy
+			路由配置: zuul.route.<serviceName>.path=path; zuul.route.<serviceName>.serviceId=serviceId;
+			请求过滤: 通过继承ZuulFilter自定义过滤类,重写run()定义过滤操作, filterType[pre, routing, error, post]
+			
+			
+			
+			
+			
+	---------------------------------------------------------------------------------------------------------------
+	
 	--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	引用类型定义: 强引用 > 软引用 > 弱引用 > 虚引用
 	--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------		
@@ -244,6 +293,13 @@ Java
 		  corePoolSize: 核心线程数, 实际运行线程数
 		  maximumPoolSize: 最大线程数, 最多可创建线程数
 		  keepAliveTime: 非核心线程闲置存活的最大时间
+		  
+		  
+
+
+		  
+		  
+		  
 		  
 		                                             
 	  线程池运行流程: 用户提交线程 -> <判断当前线程数> -> <判断缓存队列满否> -> <判断最大线程数> -> 拒绝任务(并且报错)

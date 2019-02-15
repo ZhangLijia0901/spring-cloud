@@ -13,13 +13,15 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.4.RELEASE</version>
-		<!-- <version>2.0.0.RELEASE</version> -->
+<!-- 		<version>1.5.4.RELEASE</version> -->
+		<version>2.0.0.RELEASE</version>
 	</parent>
 	<artifactId>cloud-yw</artifactId>
 	<packaging>jar</packaging>
 	<name>cloud-yw Maven Webapp</name>
 	<url>http://maven.apache.org</url>
+
+
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -64,12 +66,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
-		<!-- <dependency> -->
-		<!-- <groupId>org.springframework.boot</groupId> -->
-		<!-- <artifactId>spring-boot-starter-webflux</artifactId> -->
-		<!-- </dependency> -->
-
+<!--
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
+-->
 		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-devtools</artifactId> 
 			<optional>true</optional> </dependency> -->
 
@@ -120,7 +122,7 @@
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid</artifactId>
-			<version>1.0.25</version>
+			<version>1.0.25</version> 
 		</dependency>
 
 		<dependency>
@@ -147,14 +149,45 @@
 		</dependency>
 
 
-<!-- 		<dependency> -->
-<!-- 			<groupId>com.financial</groupId> -->
-<!-- 			<version>0.0.1-SNAPSHOT</version> -->
-<!-- 			<artifactId>common</artifactId> -->
-<!-- 		</dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>com.financial</groupId> -->
+		<!-- <version>0.0.1-SNAPSHOT</version> -->
+		<!-- <artifactId>common</artifactId> -->
+		<!-- </dependency> -->
+
+
+	<!--swagger -->
+	<dependency>
+		<groupId>io.springfox</groupId>
+		<artifactId>springfox-swagger2</artifactId>
+		<version>2.6.1</version>
+	</dependency>
+	<dependency>
+		<groupId>io.springfox</groupId>
+		<artifactId>springfox-swagger-ui</artifactId>
+		<version>2.6.1</version>
+	</dependency>
 
 	</dependencies>
+	
+	<repositories>
+		<repository>
+			<id>springPlugins</id>
+			<url>http://repo.spring.io/plugins-release/</url>
+		</repository>
+	</repositories>
+	
 	<build>
 		<finalName>cloud-yw</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<fork>true</fork>
+					<useTestClasspath>false</useTestClasspath>
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
 </project>

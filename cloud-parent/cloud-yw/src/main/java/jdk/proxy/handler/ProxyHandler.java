@@ -1,14 +1,12 @@
 package jdk.proxy.handler;
 
-import java.io.Serializable;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
-public class ProxyHandler<T> implements InvocationHandler,Serializable {
+public class ProxyHandler<T> implements InvocationHandler {
 
 	/**  */
-	private static final long serialVersionUID = 1L;
 	private T target;
 
 	public ProxyHandler(T target) {

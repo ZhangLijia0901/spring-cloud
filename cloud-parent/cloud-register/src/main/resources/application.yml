@@ -1,16 +1,21 @@
 spring:
   profiles:
+    ### 配置环境 
     active:
     - common
   application:
+    ### 应用名
     name: ${project.register.name}
 server:
+  ### 端口
   port: ${project.register.one.port}
 eureka:
   instance:
     hostname: ${project.register.one.hostname}
   client:
+    ### 由于该应用为注册中心, 配置false代表不在注册中心配置本应用
     register-with-eureka: false
+    ### 注册中心的职责是维护服务实例, 不需要检索服务, 也设置false
     fetch-registry: false
     service-url:
       defaultZone: ${project.register.one.service-url}
