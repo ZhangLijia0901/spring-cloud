@@ -4,12 +4,12 @@ import com.lj.classfile.entity.ConstantInfo;
 import com.lj.classfile.load.ClassFile;
 
 /** 解析常量 */
-abstract class ResolveConstInner {
+abstract class ConstResolveInner {
 	abstract ConstantInfo doResolve(ClassFile classFile);
 }
 
 /** 解析内容常量 */
-class ResolveConstFixedLength extends ResolveConstInner {
+class ResolveConstFixedLength extends ConstResolveInner {
 	private int length;// 读取数据的长度, 为0则通过去取4位作为长度.
 	private String descer;// 描述
 	private Class<?> contentClass;// 解析后内容Class
@@ -32,7 +32,7 @@ class ResolveConstFixedLength extends ResolveConstInner {
 }
 
 /** 解析引用常量 */
-class ResolveConstReference extends ResolveConstInner {
+class ResolveConstReference extends ConstResolveInner {
 	private String descer;// 描述
 	private Integer[] refLens;// 引用长度
 

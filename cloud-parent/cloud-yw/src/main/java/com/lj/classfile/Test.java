@@ -1,9 +1,13 @@
 package com.lj.classfile;
 
+import org.apache.commons.codec.DecoderException;
+
 public class Test {
 
-	public static void main(String[] args) {
-		String classPath = "E:\\github\\spring-cloud\\cloud-parent\\cloud-yw\\target\\classes\\com\\lj\\webflux\\App.class";
+	public static void main(String[] args) throws DecoderException {
+
+//		System.err.println(Hex.decodeHex("0001000E0000"));
+		String classPath = "E:\\github\\spring-cloud\\cloud-parent\\cloud-yw\\target\\classes\\com\\lj\\classfile\\A.class";
 		new ResolveClass().resolveClass(classPath).print();
 	}
 }
