@@ -5,57 +5,37 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Method;
-import java.util.Arrays;
 
-import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
 
+/**
+ * 
+ * Class文件加载
+ */
 public class ClassFile {
-
-	private char[] fileHexs;
-	private int cursor = 0;
+	String filePath;
 
 	public ClassFile(String filePath) {
-		File file = new File(filePath);
-		if (!file.exists())
-			this.fileHexs = new char[0];
-		this.fileHexs = readClasstoHex(file);
+		this.filePath = filePath;
 	}
 
-	@SuppressWarnings("unchecked")
-	public <T> T readContent(int len, Class<T> clazz) {
-		String originalText = String.valueOf(Arrays.copyOfRange(fileHexs, cursor, cursor += len));
-		if (clazz == null)
-			return (T) originalText;
-		if (Number.class.isAssignableFrom(clazz)) {
-			try {
-				Method valueOfMethod = clazz.getDeclaredMethod("valueOf", String.class, int.class);
-				return (T) valueOfMethod.invoke(null, originalText, 16);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		if (clazz == String.class) {
-			byte[] decodeHex;
-			try {
-				decodeHex = Hex.decodeHex(originalText.toCharArray());
-				return (T) new String(decodeHex);
-			} catch (DecoderException e) {
-				e.printStackTrace();
-			}
-		}
-		return null;
-
+	/**
+	 * 加载class文件并转换成16进制数据
+	 */
+	public HexReader toHexReader() {
+		File file = new File(filePath);
+		char[] hexs = null;
+		if (!file.exists())
+			hexs = new char[0];
+		hexs = readClasstoHex(file);
+		return new HexReader(hexs);
 	}
 
 	/** 读取class文件 */
-	static char[] readClasstoHex(File file) {
-
+	char[] readClasstoHex(File file) {
 		try (InputStream is = new FileInputStream(file)) {
 			byte[] bs = new byte[(int) file.length()];
 			is.read(bs);
-
 			return Hex.encodeHex(bs, false);
 
 		} catch (FileNotFoundException e) {

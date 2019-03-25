@@ -1,20 +1,20 @@
 package com.lj.classfile;
 
-import com.lj.classfile.resolve.AccessFlagResolve;
-import com.lj.classfile.resolve.ExtendsRelationResolve;
-import com.lj.classfile.resolve.ExtendsRelationResolve.ExtendsRelation;
-import com.lj.classfile.resolve.FieldResolve;
-import com.lj.classfile.resolve.ResolveConst;
-
 import java.util.List;
 import java.util.Map;
 
 import com.lj.classfile.entity.AccessFlags;
 import com.lj.classfile.entity.ClassInfo;
 import com.lj.classfile.entity.ConstantInfo;
-import com.lj.classfile.entity.FieldInfo;
+import com.lj.classfile.entity.FieldMethodeInfo;
 import com.lj.classfile.entity.VersionInfo;
 import com.lj.classfile.load.ClassFile;
+import com.lj.classfile.load.HexReader;
+import com.lj.classfile.resolve.AccessFlagResolve;
+import com.lj.classfile.resolve.ConstantResolve;
+import com.lj.classfile.resolve.ExtendsRelationResolve;
+import com.lj.classfile.resolve.ExtendsRelationResolve.ExtendsRelation;
+import com.lj.classfile.resolve.FieldMethodResolve;
 
 /** 解析Class */
 public class ResolveClass {
@@ -23,27 +23,32 @@ public class ResolveClass {
 	}
 
 	public ClassInfo resolveClass(String classPath) {
-		ClassFile classFile = new ClassFile(classPath);
-		VersionInfo version = verify(classFile);/// 解析版本号
-		Map<Integer, ConstantInfo> constantInfos = new ResolveConst().resolve(classFile);// 常量
-		List<AccessFlags> accessFlags = AccessFlagResolve.resolveForClass(classFile);// Class标志信息
-		ExtendsRelation relation = ExtendsRelationResolve.resolve(classFile);// 继承关系
-		List<FieldInfo> fields = FieldResolve.resolve(classFile);// 字段
+		HexReader hexReader = new ClassFile(classPath).toHexReader();
+		VersionInfo version = verify(hexReader);/// 解析版本号
+		Map<Integer, ConstantInfo> constantInfos = new ConstantResolve().resolve(hexReader);// 常量
+		List<AccessFlags> accessFlags = AccessFlagResolve.resolveForClass(hexReader);// Class标志信息
+		ExtendsRelation relation = ExtendsRelationResolve.resolve(hexReader);// 继承关系
 
 		ClassInfo classInfo = new ClassInfo();
 		classInfo.setVersion(version);
 		classInfo.setConstantPool(constantInfos);
 		classInfo.setAccessFlags(accessFlags);
 		classInfo.setExtendsRelation(relation);
+
+		List<FieldMethodeInfo> fields = FieldMethodResolve.resolve(hexReader, classInfo);// 字段
 		classInfo.setFields(fields);
+		List<FieldMethodeInfo> methods = FieldMethodResolve.resolve(hexReader, classInfo);// 方法
+		methods.forEach((m)->{
+			System.err.println(m.toString());
+		});
 
 		return classInfo;
 	}
 
-	private VersionInfo verify(ClassFile classFile) {
-		String magicNumber = classFile.readContent(8, null);// 魔数
-		int minorVersion = classFile.readContent(4, Integer.class); // 次版本
-		int mainVersion = classFile.readContent(4, Integer.class); // 主版本
+	private VersionInfo verify(HexReader hexReader) {
+		String magicNumber = hexReader.readContent(8, null);// 魔数
+		int minorVersion = hexReader.readContent(4, Integer.class); // 次版本
+		int mainVersion = hexReader.readContent(4, Integer.class); // 主版本
 		VersionInfo version = new VersionInfo(magicNumber, minorVersion, mainVersion);
 		return version;
 	}

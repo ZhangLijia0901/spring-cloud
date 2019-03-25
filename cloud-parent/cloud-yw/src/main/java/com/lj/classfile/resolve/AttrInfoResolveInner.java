@@ -1,26 +1,38 @@
 package com.lj.classfile.resolve;
 
 import com.lj.classfile.entity.AttrInfo;
-import com.lj.classfile.entity.ClassInfo;
-import com.lj.classfile.load.ClassFile;
+import com.lj.classfile.load.HexReader;
 
 import lombok.AllArgsConstructor;
 
 /** 属性解析 */
 interface AttrInfoResolveInner {
-	AttrInfo doResolve(ClassFile classFile, ClassInfo classInfo);
+	AttrInfo doResolve(HexReader hexReader);
 }
-
+/** 标准属性解析 */
 @AllArgsConstructor
 class StandardResolve implements AttrInfoResolveInner {
 	private Class<?> clazz;
+	private Boolean isRef = false;
 
-	@Override
-	public AttrInfo doResolve(ClassFile classFile, ClassInfo classInfo) {
-		Integer length = classFile.readContent(8, Integer.class);
-		Object info = classFile.readContent(length * 2, clazz);
-
-		return null;
+	public StandardResolve(Class<?> clazz) {
+		this.clazz = clazz;
 	}
 
+	@Override
+	public AttrInfo doResolve(HexReader hexReader) {
+		Integer length = hexReader.readContent(8, Integer.class);
+		Object info = null;
+		if (length > 0)
+			info = hexReader.readContent(length * 2, clazz);
+
+		AttrInfo attrInfo = new AttrInfo();
+		attrInfo.setLength(length);
+		attrInfo.setIsRef(isRef);
+		if (isRef)
+			attrInfo.setRef((Integer) info);
+		else
+			attrInfo.setInfo(info);
+		return attrInfo;
+	}
 }

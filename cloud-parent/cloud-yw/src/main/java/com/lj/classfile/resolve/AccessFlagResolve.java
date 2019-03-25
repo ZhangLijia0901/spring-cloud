@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lj.classfile.entity.AccessFlags;
-import com.lj.classfile.load.ClassFile;
+import com.lj.classfile.load.HexReader;
 
 /** 访问标志解析 */
 public class AccessFlagResolve {
 
 	/** 解析Class的访问标志 */
-	public static List<AccessFlags> resolveForClass(ClassFile classFile) {
-		int accValue = classFile.readContent(4, Integer.class);
+	public static List<AccessFlags> resolveForClass(HexReader hexReader) {
+		int accValue = hexReader.readContent(4, Integer.class);
 
 		List<AccessFlags> accessFlags = new ArrayList<AccessFlags>();
 		for (AccessFlags accessFlag : AccessFlags.values())
@@ -32,8 +32,8 @@ public class AccessFlagResolve {
 	}
 
 	/** 解析Field的访问标志 */
-	static List<AccessFlags> resolveForField(ClassFile classFile) {
-		int accValue = classFile.readContent(4, Integer.class);
+	static List<AccessFlags> resolveForField(HexReader hexReader) {
+		int accValue = hexReader.readContent(4, Integer.class);
 
 		List<AccessFlags> accessFlags = new ArrayList<AccessFlags>();
 		for (AccessFlags accessFlag : AccessFlags.values())

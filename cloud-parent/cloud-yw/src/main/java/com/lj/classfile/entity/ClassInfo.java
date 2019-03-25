@@ -13,7 +13,7 @@ public class ClassInfo {
 	private Map<Integer, ConstantInfo> constantPool;// 常量信息
 	private List<AccessFlags> accessFlags; // 标志信息
 	private ExtendsRelation extendsRelation;// 继承关系
-	private List<FieldInfo> fields;// 字段集
+	private List<FieldMethodeInfo> fields;// 字段集
 
 	/** 根据索引获取信息 */
 	public String getConstantInfo(Integer index) {
@@ -41,7 +41,7 @@ public class ClassInfo {
 		return builder.toString();
 	}
 
-	private String getField(FieldInfo field) {
+	private String getField(FieldMethodeInfo field) {
 		String format = field.toString();
 		String desc = getConstantInfo(field.getDescI());
 		String name = getConstantInfo(field.getNameI());
@@ -56,7 +56,7 @@ public class ClassInfo {
 		});
 		System.err.println(String.format("\nthis class: %s", getConstantInfo(extendsRelation.getThisClass())));
 		System.err.println(String.format("super class: %s", getConstantInfo(extendsRelation.getSuperClass())));
-//		System.err.println(getFields());
+		System.err.println(getFields());
 
 		System.err.println("Constant Pool: ");
 		constantPool.forEach((ref, constInfo) -> {

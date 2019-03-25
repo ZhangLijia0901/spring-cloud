@@ -1,15 +1,15 @@
 package com.lj.classfile.resolve;
 
 import com.lj.classfile.entity.ConstantInfo;
-import com.lj.classfile.load.ClassFile;
+import com.lj.classfile.load.HexReader;
 
 /** 解析常量 */
-abstract class ConstResolveInner {
-	abstract ConstantInfo doResolve(ClassFile classFile);
+interface ConstResolveInner {
+	ConstantInfo doResolve(HexReader hexReader);
 }
 
 /** 解析内容常量 */
-class ResolveConstFixedLength extends ConstResolveInner {
+class ResolveConstFixedLength implements ConstResolveInner {
 	private int length;// 读取数据的长度, 为0则通过去取4位作为长度.
 	private String descer;// 描述
 	private Class<?> contentClass;// 解析后内容Class
@@ -20,19 +20,18 @@ class ResolveConstFixedLength extends ConstResolveInner {
 		this.contentClass = contentClass;
 	}
 
-	@Override
-	ConstantInfo doResolve(ClassFile classFile) {
+	public ConstantInfo doResolve(HexReader hexReader) {
 		int len = this.length;
 		if (len == 0)
-			len = classFile.readContent(4, Integer.class) * 2;
-		Object val = classFile.readContent(len, contentClass);
+			len = hexReader.readContent(4, Integer.class) * 2;
+		Object val = hexReader.readContent(len, contentClass);
 		ConstantInfo content = new ConstantInfo(descer, val);
 		return content;
 	}
 }
 
 /** 解析引用常量 */
-class ResolveConstReference extends ConstResolveInner {
+class ResolveConstReference implements ConstResolveInner {
 	private String descer;// 描述
 	private Integer[] refLens;// 引用长度
 
@@ -48,10 +47,10 @@ class ResolveConstReference extends ConstResolveInner {
 	}
 
 	@Override
-	ConstantInfo doResolve(ClassFile classFile) {
+	public ConstantInfo doResolve(HexReader hexReader) {
 		ConstantInfo content = new ConstantInfo(descer);
 		for (Integer refLen : refLens) {
-			Integer ref = classFile.readContent(refLen, Integer.class);
+			Integer ref = hexReader.readContent(refLen, Integer.class);
 			content.addReferences(ref);
 		}
 		return content;

@@ -3,7 +3,7 @@ package com.lj.classfile.resolve;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lj.classfile.load.ClassFile;
+import com.lj.classfile.load.HexReader;
 
 import lombok.Data;
 
@@ -11,15 +11,15 @@ import lombok.Data;
 public class ExtendsRelationResolve {
 
 	/** 解析 */
-	public static ExtendsRelation resolve(ClassFile classFile) {
+	public static ExtendsRelation resolve(HexReader hexReader) {
 		ExtendsRelation extendsRelation = new ExtendsRelation();
-		extendsRelation.setThisClass(classFile.readContent(4, Integer.class));// 获取当前类索引
-		extendsRelation.setSuperClass(classFile.readContent(4, Integer.class));// 获取父类索引
+		extendsRelation.setThisClass(hexReader.readContent(4, Integer.class));// 获取当前类索引
+		extendsRelation.setSuperClass(hexReader.readContent(4, Integer.class));// 获取父类索引
 
-		int interfaceLen = classFile.readContent(4, Integer.class);
+		int interfaceLen = hexReader.readContent(4, Integer.class);
 		List<Integer> interfaces = new ArrayList<>();// 实现接口的索引
 		for (int i = 0; i < interfaceLen; i++)
-			interfaces.add(classFile.readContent(4, Integer.class));
+			interfaces.add(hexReader.readContent(4, Integer.class));
 		extendsRelation.setInterfaces(interfaces);
 
 		return extendsRelation;

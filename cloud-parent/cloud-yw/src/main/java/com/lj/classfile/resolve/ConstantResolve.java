@@ -5,10 +5,10 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.lj.classfile.entity.ConstantInfo;
-import com.lj.classfile.load.ClassFile;
+import com.lj.classfile.load.HexReader;
 
 /** 解析常量 */
-public class ResolveConst {
+public class ConstantResolve {
 
 	static Map<Integer, ConstResolveInner> resolveConstInners = new HashMap<>();
 	static {
@@ -30,13 +30,13 @@ public class ResolveConst {
 		resolveConstInners.put(18, new ResolveConstReference("InvokeDynamic"));// 引导方法表 | NameAndType
 	}
 
-	public Map<Integer, ConstantInfo> resolve(ClassFile classFile) {
+	public Map<Integer, ConstantInfo> resolve(HexReader hexReader) {
 		Map<Integer, ConstantInfo> infos = new LinkedHashMap<>();
-		Integer constant_pool_count = classFile.readContent(4, Integer.class);// 常量数量
+		Integer constant_pool_count = hexReader.readContent(4, Integer.class);// 常量数量
 		for (int i = 1; i < constant_pool_count; i++) {
-			int flag = classFile.readContent(2, Integer.class);
+			int flag = hexReader.readContent(2, Integer.class);
 			ConstResolveInner resolve = resolveConstInners.get(flag);
-			ConstantInfo content = resolve.doResolve(classFile);
+			ConstantInfo content = resolve.doResolve(hexReader);
 			infos.put(i, content);
 		}
 		return infos;
