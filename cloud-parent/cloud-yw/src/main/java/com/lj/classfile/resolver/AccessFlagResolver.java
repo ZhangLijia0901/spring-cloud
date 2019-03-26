@@ -1,4 +1,4 @@
-package com.lj.classfile.resolve;
+package com.lj.classfile.resolver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ import com.lj.classfile.entity.AccessFlags;
 import com.lj.classfile.load.HexReader;
 
 /** 访问标志解析 */
-public class AccessFlagResolve {
+public class AccessFlagResolver {
 
 	/** 解析Class的访问标志 */
 	public static List<AccessFlags> resolveForClass(HexReader hexReader) {

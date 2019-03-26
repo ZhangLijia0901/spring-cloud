@@ -1,4 +1,4 @@
-package com.lj.classfile.resolve;
+package com.lj.classfile.resolver;
 
 import com.lj.classfile.entity.AttrInfo;
 import com.lj.classfile.load.HexReader;
@@ -6,16 +6,16 @@ import com.lj.classfile.load.HexReader;
 import lombok.AllArgsConstructor;
 
 /** 属性解析 */
-interface AttrInfoResolveInner {
+interface AttrInfoResolverInner {
 	AttrInfo doResolve(HexReader hexReader);
 }
 /** 标准属性解析 */
 @AllArgsConstructor
-class StandardResolve implements AttrInfoResolveInner {
+class StandardResolver implements AttrInfoResolverInner {
 	private Class<?> clazz;
 	private Boolean isRef = false;
 
-	public StandardResolve(Class<?> clazz) {
+	public StandardResolver(Class<?> clazz) {
 		this.clazz = clazz;
 	}
 

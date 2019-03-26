@@ -1,4 +1,4 @@
-package com.lj.classfile.resolve;
+package com.lj.classfile.resolver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import com.lj.classfile.entity.FieldMethodeInfo;
 import com.lj.classfile.load.HexReader;
 
 /** 字段方法解析 */
-public class FieldMethodResolve {
+public class FieldMethodResolver {
 
 	/** 解析方法和字段 */
 	public static List<FieldMethodeInfo> resolve(HexReader hexReader, ClassInfo classInfo) {
@@ -18,7 +18,7 @@ public class FieldMethodResolve {
 
 		for (int i = 0; i < fieldLen; i++) {
 			FieldMethodeInfo field = new FieldMethodeInfo();
-			List<AccessFlags> accFlags = AccessFlagResolve.resolveForField(hexReader);// 标志
+			List<AccessFlags> accFlags = AccessFlagResolver.resolveForField(hexReader);// 标志
 			int nameI = hexReader.readContent(4, Integer.class);// 简单名称索引
 			int descI = hexReader.readContent(4, Integer.class);// 描述索引
 

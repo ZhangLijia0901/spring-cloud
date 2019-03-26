@@ -1,4 +1,4 @@
-package com.lj.classfile.resolve;
+package com.lj.classfile.resolver;
 
 import com.lj.classfile.entity.ConstantInfo;
 import com.lj.classfile.load.HexReader;

@@ -3,7 +3,7 @@ package com.lj.classfile.entity;
 import java.util.List;
 import java.util.Map;
 
-import com.lj.classfile.resolve.ExtendsRelationResolve.ExtendsRelation;
+import com.lj.classfile.resolver.ExtendsRelationResolve.ExtendsRelation;
 
 import lombok.Data;
 

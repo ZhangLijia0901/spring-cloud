@@ -1,4 +1,4 @@
-package com.lj.classfile.resolve;
+package com.lj.classfile.resolver;
 
 import java.util.ArrayList;
 import java.util.List;

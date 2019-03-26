@@ -30,11 +30,14 @@ public final class A implements Serializable {
 //	public final static Integer ico1 = 188;
 //
 	public void ico() throws EnumConstantNotPresentException {
-		try {
-			int a = 1;
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+//		int a = 1;
+//		try {
+//			a = 3;
+//		} catch (Exception e) {
+//			a = 2;
+//		} finally {
+//			a = 4;
+//		}
 	}
 
 	public void ico1() {

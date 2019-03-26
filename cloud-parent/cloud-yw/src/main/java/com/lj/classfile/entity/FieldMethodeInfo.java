@@ -16,6 +16,9 @@ public class FieldMethodeInfo {
 	private Integer descI; // 描述索引
 
 	private List<AttrInfo> attrInfos;// 属性信息索引
+	
+	
+	/////////// Code 
 
 	public String toString() {
 		String val = null;
