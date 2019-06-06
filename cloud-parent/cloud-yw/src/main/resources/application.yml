@@ -2,9 +2,10 @@ logging:
   level:
     root: info
     com.lj: debug
+## --
 server:
   port: 8080
-wx:
+wx: 
   appid: wx86355b69b0af0b7c
   appsecret: 39af27b8e647b599823a3089317f81b4
   token: HafS3ZIotbjisg1YBfRKM2xQYGg6sRXD
@@ -14,3 +15,14 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8
     username: root
     password: x5
+    
+    
+swagger:
+  enabled: true
+  ## 维护人 
+  contact:    name: 
+    email: 
+    url: 
+  description: 描述
+  base-package: 
+  

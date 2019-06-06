@@ -47,7 +47,6 @@ public class UserController {
 //	public Flux<User> getAll() {
 //		return Flux.fromIterable(users.entrySet().stream().map(entry -> entry.getValue()).collect(Collectors.toList()));
 //	}
-
 	@PostMapping
 	@ResponseBody
 	@ApiOperation(value = "创建用户", notes = "根据User对象创建用户")
@@ -62,5 +61,7 @@ public class UserController {
 	public Collection<User> getAll() {
 		return users.values();
 	}
+	
+
 
 }

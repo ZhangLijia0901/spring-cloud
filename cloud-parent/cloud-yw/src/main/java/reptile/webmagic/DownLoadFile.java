@@ -101,9 +101,4 @@ public class DownLoadFile {
 		}
 	}
 
-	public static void main(String[] args) {
-		// imgUrls.offer("http://www.xxx/a.jpg");
-		downFile(true);
-	}
-
 }

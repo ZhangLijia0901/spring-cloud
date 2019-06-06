@@ -22,6 +22,7 @@ public class ResolveClass {
 	public ResolveClass() {
 	}
 
+	/** 解析Class文件**/
 	public ClassInfo resolveClass(String classPath) {
 		HexReader hexReader = new ClassFile(classPath).toHexReader();
 		VersionInfo version = verify(hexReader);/// 解析版本号

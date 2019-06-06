@@ -37,7 +37,4 @@ public class Base64ImgParse {
 		}
 	}
 
-	public static void main(String[] args) {
-
-	}
 }

@@ -3,7 +3,7 @@ package jdk.proxy;
 import java.io.File;
 
 public class Main {
-	public static void main(String[] args) throws Exception {
+//	public static void main(String[] args) throws Exception {
 		// Field field = System.class.getDeclaredField("props");
 		// field.setAccessible(true);
 		// Properties props = (Properties) field.get(null);
@@ -20,7 +20,7 @@ public class Main {
 
 		// E:\xp1.0xxx
 //		removeJar(new File("E:\\xp1.0xxx"));
-	}
+//	}
 
 	static void removeJar(File folderFile) {
 		for (File file : folderFile.listFiles()) {

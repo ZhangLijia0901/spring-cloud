@@ -15,7 +15,7 @@ public class ConstantInfo {
 	private String originalVal;// 原始值
 	private Object val;// 解析的值
 	private LinkedList<Integer> references;// 引用
-	private Boolean isVal;// 是否有解析值
+	private Boolean isVal = true;// 是否有解析值
 
 	public ConstantInfo(String descer) {
 		this.descer = descer;
