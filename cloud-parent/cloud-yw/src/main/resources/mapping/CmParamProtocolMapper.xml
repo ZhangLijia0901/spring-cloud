@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lj.webflux.mapper.CmParamProtocolMapper">
+	<select id="selectAll" resultType="java.util.Map">
+		select * from
+		CM_PARAM_PROTOCOL
+	</select>
+
+	<insert id="insert">
+		INSERT INTO CM_PARAM_PROTOCOL(
+		CODE, NAME,
+		<if test="cm.car1!=null and cm.car1!='0'.toString()"> CAR1, </if>
+		<if test="cm.car2!=null and cm.car2!='0'.toString()"> CAR2, </if>
+		<if test="cm.car3!=null and cm.car3!='0'.toString()"> CAR3, </if>
+		<if test="cm.car4!=null and cm.car4!='0'.toString()"> CAR4, </if>
+		<if test="cm.car5!=null and cm.car5!='0'.toString()"> CAR5, </if>
+		<if test="cm.car6!=null and cm.car6!='0'.toString()"> CAR6, </if>
+		<if test="cm.car7!=null and cm.car7!='0'.toString()"> CAR7, </if>
+		<if test="cm.car8!=null and cm.car8!='0'.toString()"> CAR8, </if>
+		<if test="cm.car9!=null and cm.car9!='0'.toString()"> CAR9, </if>
+		<if test="cm.car10!=null and cm.car10!='0'.toString()"> CAR10, </if>
+		<if test="cm.car11!=null and cm.car11!='0'.toString()"> CAR11, </if>
+		<if test="cm.car12!=null and cm.car12!='0'.toString()"> CAR12, </if>
+		<if test="cm.car13!=null and cm.car13!='0'.toString()"> CAR13, </if>
+		<if test="cm.car14!=null and cm.car14!='0'.toString()"> CAR14, </if>
+		<if test="cm.car15!=null and cm.car15!='0'.toString()"> CAR15, </if>
+		<if test="cm.car16!=null and cm.car16!='0'.toString()"> CAR16, </if>
+		<if test="cm.type!=null"> TYPE, </if>
+		<if test="cm.kvList!=null and cm.kvList != ''"> KV_LIST, </if>
+		SYS_NAME,
+		IS_DERIVE,
+		PARAM_TYPE,
+		TRAIN_CATE
+		)VALUES(
+		#{cm.code},#{cm.name},
+		<if test="cm.car1!=null and cm.car1!='0'.toString()"> #{cm.car1}, </if>
+		<if test="cm.car2!=null and cm.car2!='0'.toString()"> #{cm.car2}, </if>
+		<if test="cm.car3!=null and cm.car3!='0'.toString()"> #{cm.car3}, </if>
+		<if test="cm.car4!=null and cm.car4!='0'.toString()"> #{cm.car4}, </if>
+		<if test="cm.car5!=null and cm.car5!='0'.toString()"> #{cm.car5}, </if>
+		<if test="cm.car6!=null and cm.car6!='0'.toString()"> #{cm.car6}, </if>
+		<if test="cm.car7!=null and cm.car7!='0'.toString()"> #{cm.car7}, </if>
+		<if test="cm.car8!=null and cm.car8!='0'.toString()"> #{cm.car8}, </if>
+		<if test="cm.car9!=null and cm.car9!='0'.toString()"> #{cm.car9}, </if>
+		<if test="cm.car10!=null and cm.car10!='0'.toString()"> #{cm.car10}, </if>
+		<if test="cm.car11!=null and cm.car11!='0'.toString()"> #{cm.car11}, </if>
+		<if test="cm.car12!=null and cm.car12!='0'.toString()"> #{cm.car12}, </if>
+		<if test="cm.car13!=null and cm.car13!='0'.toString()"> #{cm.car13}, </if>
+		<if test="cm.car14!=null and cm.car14!='0'.toString()"> #{cm.car14}, </if>
+		<if test="cm.car15!=null and cm.car15!='0'.toString()"> #{cm.car15}, </if>
+		<if test="cm.car16!=null and cm.car16!='0'.toString()"> #{cm.car16}, </if>
+		<if test="cm.type!=null"> #{cm.type}, </if>
+		<if test="cm.kvList!=null and cm.kvList != ''"> #{cm.kvList}, </if>
+		#{cm.sysName},#{cm.isDerive},#{cm.paramType}, #{cm.trainCate}
+		)
+	</insert>
+	
+	<delete id="delete" >
+		delete CM_PARAM_PROTOCOL
+		where TRAIN_CATE = #{trainCate}
+	</delete>
+
+
+</mapper>

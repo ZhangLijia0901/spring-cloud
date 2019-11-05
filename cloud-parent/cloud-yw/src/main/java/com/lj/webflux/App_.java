@@ -1,82 +1,86 @@
 package com.lj.webflux;
 
-import java.lang.invoke.CallSite;
-import java.lang.invoke.ConstantCallSite;
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.MethodHandles;
-import java.lang.invoke.MethodType;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.BeanFactoryUtils;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.ConfigurableApplicationContext;
+// @WxApplication
+// @SpringBootApplication(scanBasePackageClasses = { Swagger2Configuration.class, UserController.class })
+public class App_ {
 
-import com.lj.webflux.config.Swagger2Configuration;
-import com.lj.webflux.controller.UserController;
-
-//@WxApplication
-//@SpringBootApplication(scanBasePackageClasses = { Swagger2Configuration.class, UserController.class })
-public class App_ implements InitializingBean, ApplicationContextAware {
-
-	private ApplicationContext applicationContext;
-
-	@Override
-	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		this.applicationContext = applicationContext;
-	}
-
-	@Override
-	public void afterPropertiesSet() throws Exception {
-		if (applicationContext != null) {
-			if (applicationContext instanceof ConfigurableApplicationContext) {
-				ConfigurableListableBeanFactory beanFactory = ((ConfigurableApplicationContext) applicationContext)
-						.getBeanFactory();
-
-				Arrays.asList(BeanFactoryUtils.beanNamesForTypeIncludingAncestors(beanFactory, Object.class))
-						.forEach(System.err::println);
-			}
+    static interface Fun {
+        default void a() {
+			
+//			InputStream;
+			
+//			InputStreamReader;
+			
+//			BufferedReader;
+			
+//			Objects;
+			
 		}
-	}
 
-	public static void main(String[] args) {
+        void b();
 
-	}
+    }
 
-	static void testMethod(String s) {
-		System.err.println("hello String : " + s);
-	}
+    static void println(int i) {
+        System.err.println();
+    }
 
-	static CallSite BootstrapMethod(MethodHandles.Lookup lookup, String name, MethodType mt) throws Throwable {
-		return new ConstantCallSite(lookup.findStatic(App_.class, name, mt));
-	}
+    public static void main(String[] args) {
+        // Fun fun = () -> {
+        //
+        // };
 
-	static MethodType MT_BootstrapMethod() {
-		List<Class<?>> classs = new ArrayList<>();
-		classs.add(MethodHandles.Lookup.class);
-		classs.add(String.class);
-		classs.add(MethodType.class);
+        // List<Integer> is = List.of(1, 2, 3, 5, 8, 6);
+        // is = is.stream().filter(i -> i != 5).sorted((i1, i2) -> i2 - i1).collect(Collectors.toList());
+        // is.forEach(System.err::println);
+        //
+        // Stream.generate(Math::random)
+        //
+        // .map(String::valueOf).map(s -> s.charAt(s.length()))
+        //
+        // .forEach(System.err::println);
+        //
+        // Stream.of("1", '2').forEach(System.out::println);
+        // ;
 
-		return MethodType.methodType(CallSite.class, classs);
-//		return MethodType.fromMethodDescriptorString(
-//				"(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;",
-//				null);
-	}
+        // List<String> sdata = new ArrayList<>();
+        // for (int i = 0; i < 10; i++)
+        // sdata.add(String.valueOf(Math.random()));
 
-	static MethodHandle MH_BootstrapMethod() throws Exception {
-		return MethodHandles.lookup().findStatic(App_.class, "BootstrapMethod", MT_BootstrapMethod());
-	}
+        Stream<String> stream = Stream.generate(Math::random).limit(10).map(String::valueOf);
 
-	static MethodHandle INDY_BootstrapMethod() throws Throwable {
-		CallSite callSite = (CallSite) MH_BootstrapMethod().invokeWithArguments(MethodHandles.lookup(), "testMethod",
-				MethodType.fromMethodDescriptorString("(Ljava/lang/String;)V", null));
-		return callSite.dynamicInvoker();
-	}
+        // Stream<Stream<Character>> map =
+        // sdata.stream().map(App_::characterStream)
+        // .forEach(System.err::println);
+        // .forEach(s -> s.forEach(System.err::println));
+        Stream<Character> flatMap = stream.flatMap(App_::characterStream);
 
+        stream.flatMap(new Function<String, Stream<Character>>() {
+            @Override
+            public Stream<Character> apply(String t) {
+                return App_.characterStream(t);
+            }
+
+        });
+        flatMap.forEach(System.err::println);
+
+    }
+
+    static Stream<Character> characterStream(String s) {
+
+        List<Character> lc = new ArrayList<>();
+        for (char c : s.toCharArray())
+            lc.add(c);
+
+        return lc.stream();
+    }
 }

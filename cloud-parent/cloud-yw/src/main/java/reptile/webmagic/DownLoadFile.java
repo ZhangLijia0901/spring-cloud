@@ -13,7 +13,7 @@ import java.util.concurrent.LinkedTransferQueue;
 
 public class DownLoadFile {
 
-	static String diskUri = "F:\\webmgic\\baidu";
+	static String diskUri = "E:\\webmgic\\baidu";
 
 	final static Set<String> uriFilter = new HashSet<String>();
 	final static BlockingQueue<String> imgUrls = new LinkedTransferQueue<>();

@@ -11,12 +11,13 @@ wx:
   token: HafS3ZIotbjisg1YBfRKM2xQYGg6sRXD
 spring:
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8
-    username: root
-    password: x5
-    
-    
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@192.168.3.245:1521:orcl
+    username: CRC_SCOTT
+    password: CRC_SCOTT
+mybatis:
+  mapper-locations: classpath:mapping/*Mapper.xml
+  type-aliases-package: com.lj.webflux.entity
 swagger:
   enabled: true
   ## 维护人 
