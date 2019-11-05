@@ -25,6 +25,7 @@
 		<java.version>11</java.version>
 		<project.version>0.0.1-SNAPSHOT</project.version>
 		<boot.admin.version>2.0.3</boot.admin.version>
+		<alibaba.fastjson.version>1.2.47</alibaba.fastjson.version>
 	</properties>
 
 	<dependencyManagement>
@@ -54,6 +55,23 @@
 				<version>1.9.0.RELEASE</version>
 			</dependency>
 
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>easyexcel</artifactId>
+				<version>2.0.0</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>fastjson</artifactId>
+				<version>${alibaba.fastjson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>1.18.4</version>
+			</dependency>
+
+
 
 		</dependencies>
 	</dependencyManagement>
@@ -70,5 +88,6 @@
 		<module>cloud-common</module>
 		<module>cloud-yw</module>
 		<module>cloud-config-server</module>
+		<module>utils</module>
 	</modules>
 </project>
