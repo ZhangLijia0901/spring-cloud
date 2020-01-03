@@ -25,7 +25,7 @@ public class CmParamProtocol {
     Double ratio = null;
     String paramType = "3"; // 0：整车；1：单元；3：部件
     Integer isDerive = 0;
-    String sysName = " 其它";
+    String sysName = "其它";
 
     public String getCode() {
         return code;

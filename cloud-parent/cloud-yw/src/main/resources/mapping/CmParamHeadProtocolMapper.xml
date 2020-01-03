@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.lj.webflux.mapper.CmParamHeadProtocolMapper">
+	<resultMap type="com.lj.webflux.entity.CmParamHeadProtocol"
+		id="BaseMap">
+		<result column="CODE" property="code" />
+		<result column="NAME" property="name" />
+		<result column="PARAM_CODES" property="paramCodes" />
+		<result column="PARAM_KV" property="paramkv" />
+		<result column="TYPE" property="type" />
+		<result column="UNIT" property="unit" />
+		<result column="TRAIN_CATE" property="trainCate" />
+		<result column="PART_CODE" property="partCode" />
+		<result column="SYS_NAME" property="sysName" />
+		<result column="REMARK" property="remark" />
+	</resultMap>
+
+
+	<select id="selectAll" resultMap="BaseMap">
+		select * from
+		CM_PARAM_HEAD_PROTOCOL
+	</select>
+
+	<insert id="insert" parameterType="com.lj.webflux.entity.CmParamHeadProtocol">
+		INSERT INTO CM_PARAM_HEAD_PROTOCOL(
+			CODE, NAME,PARAM_CODES, PARAM_KV,TYPE,DICT,
+			<if test="unit!=null and unit!=''.toString()"> UNIT,</if>
+			<if test="remark!=null and remark!=''.toString()"> REMARK,</if>
+			TRAIN_CATE
+		)VALUES(
+			#{code}, #{name}, #{paramCodes}, #{paramkv}, #{type}, #{dict},
+			<if test="unit!=null and unit!=''.toString()"> #{unit},</if>
+			<if test="remark!=null and remark!=''.toString()"> #{remark},</if>
+			#{trainCate}
+		)
+	</insert>
+
+	<delete id="delete">
+		delete CM_PARAM_HEAD_PROTOCOL
+		where TRAIN_CATE = #{trainCate}
+	</delete>
+</mapper>
