@@ -25,7 +25,7 @@
 		<java.version>11</java.version>
 		<project.version>0.0.1-SNAPSHOT</project.version>
 		<boot.admin.version>2.0.3</boot.admin.version>
-		<alibaba.fastjson.version>1.2.47</alibaba.fastjson.version>
+		<alibaba.fastjson.version>1.2.83</alibaba.fastjson.version>
 	</properties>
 
 	<dependencyManagement>
